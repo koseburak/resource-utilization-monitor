@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    container_name: nginx
+    depends_on:
+      - api
+      - client
+    ports:
+      - "8080:80"
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./api"
+    container_name: api
+
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./sys-stats
+    container_name: client
+    depends_on:
+      - api
+    volumes:
+      - /home/observer/node_modules
