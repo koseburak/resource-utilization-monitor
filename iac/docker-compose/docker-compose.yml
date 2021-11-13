@@ -4,8 +4,8 @@ services:
   nginx:
     restart: always
     build:
+      context: ../../nginx
       dockerfile: Dockerfile
-      context: ./nginx
     container_name: nginx
     depends_on:
       - api
@@ -15,8 +15,8 @@ services:
 
   api:
     build:
+      context: ../../api
       dockerfile: Dockerfile
-      context: "./api"
     container_name: api
 
   client:
@@ -24,8 +24,8 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     build:
+      context: ../../sys-stats
       dockerfile: Dockerfile
-      context: ./sys-stats
     container_name: client
     depends_on:
       - api

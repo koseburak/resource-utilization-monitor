@@ -40,6 +40,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <div>
+            <h3>Resource Utilization:</h3>
             <h3>CPU : {this.state.cpu}</h3>
             <h3>RAM : {this.state.ram}</h3>
           </div>
