@@ -31,3 +31,5 @@ crash.log
 # example: *tfplan*
 aws_local.txt
 *.csv
+iac/terraform-ecs/observer-tfplan
+iac/terraform-ecs/services-components.out
