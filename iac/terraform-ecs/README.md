@@ -11,6 +11,8 @@ cd iac/terraform-ecs
 
 Note: Enter your own variable values in the **"iac/terraform-ecs/terraform.tfvars"** file
 
+<br/>
+
 ## Download and Install Terraform
 You could download and install the Terraform from the [downloads page](https://www.terraform.io/downloads.html).
 
