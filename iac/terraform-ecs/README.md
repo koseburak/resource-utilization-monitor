@@ -41,7 +41,7 @@ If you have [Terraform](https://www.terraform.io/) installed, create your infras
 
 5. Run the below command in a terminal, to Create or Update infrastructure on the AWS:
     ```console
-    terraform apply observer-tfplan -auto-approve
+    terraform apply -auto-approve "observer-tfplan"
     ```
 
 6. Run the below command in a terminal, to Destroy previously-created infrastructure on the AWS:

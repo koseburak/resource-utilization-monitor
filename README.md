@@ -14,7 +14,7 @@ Run the applications as a container on the AWS Fargate serverless infrastructure
 
 ### 1. Create IAM requirements
 
-Create a new IAM [User Role] with the following **Permission Policies** to manage ECS Fargate Cluster;
+Create a new IAM [User Role] named "ecs-admin" with the following **Permission Policies** to manage ECS Fargate Cluster;
 
 ![AWS - ECS - Administrator User Role](assets/ecs-admin-user-role.png)
 
@@ -27,13 +27,13 @@ Get the Access and Secret Keys generated for this user to access AWS using Terra
 
 ### 2. Create ECR Private Registry
 
-Create a new Elastic Container Registry(ECR) Private Repository to push application Images
+Create a new Elastic Container Registry(ECR) Private Repository to store application Images
 
 ![ECR - Private Repository](assets/ecr-create-private-repo.png)
 <br/>
 
 
-Take the access Token for **ECR Private Repository** using the **aws-cli**;
+Login to **ECR Private Repository** in the local Docker using the **aws-cli**;
 ```local
 aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account_id>.dkr.ecr.<region>.amazonaws.com
 ```
@@ -79,8 +79,8 @@ docker push $ECR_REPO:nginx-0.0.1
 cd ..
 ```
 
-### 3. Create ECS and Other Service, Components using Terraform
+### 3. Create ECS Cluster and Other Services, Components on the AWS using Terraform
 
-After the creation IAM requirements and ECR Private Repository go to the "iac/terraform-ecs" directory to create Elastic Container Service Cluster and other Services, Components using Terraform;
+After the creation IAM requirements(Step 1) and ECR Private Repository(Step 2) go to the "iac/terraform-ecs" directory to create Elastic Container Service Cluster and other Services, Components using Terraform;
 
-[Go to AWS - ECS Management example using Terraform](iac/terraform-ecs#section)
+[Go to AWS Fargate - ECS example using Terraform](iac/terraform-ecs#section)
