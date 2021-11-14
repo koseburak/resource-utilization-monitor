@@ -46,7 +46,7 @@ resource "aws_ecs_task_definition" "observer" {
       "name": "api",
       "image": "${var.ecr_url}:api-0.0.1",
       "entryPoint": [],
-      "essential": false,
+      "essential": true,
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {

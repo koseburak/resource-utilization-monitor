@@ -27,7 +27,7 @@ resource "aws_alb_target_group" "observer" {
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
-    path                = "/v1/health"
+    path                = "/"
     unhealthy_threshold = "2"
   }
 
