@@ -79,7 +79,7 @@ docker push $ECR_REPO:nginx-0.0.1
 cd ..
 ```
 
-### 3. Create ECS Cluster and Other Services, Components on the AWS using Terraform
+### 3. Create ECS Cluster and Other Resources on the AWS using Terraform
 
 After the creation IAM requirements(Step 1) and ECR Private Repository(Step 2) go to the "iac/terraform-ecs" directory to create Elastic Container Service Cluster and other Services, Components using Terraform;
 
