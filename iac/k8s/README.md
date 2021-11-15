@@ -18,37 +18,12 @@ cd iac/k8s
 
 <br/>
 
-
-2. Then, enable the ingress add-on for Minikube.
-    ```console
-    minikube addons enable ingress
-    ```
-
-
-
-
-
 ### Nginx Ingress Controller Installation Guide
 
-1. Start by creating the “mandatory” resources for Nginx Ingress in your cluster.
-    ```console
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
-    ```
-
-2. Then, enable the ingress add-on for Minikube.
-    ```console
-    minikube addons enable ingress
-    ```
-
-3. Or, if you’re using Docker for Mac to run Kubernetes instead of Minikube.
-    ```console
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/cloud-generic.yaml
-    ```
-
-4. Check that it’s all set up correctly.
-    ```console
-    kubectl get pods --all-namespaces -l app=ingress-nginx
-    ```
+Enable the ingress add-on for Minikube.
+ ```console
+ minikube addons enable ingress
+ ```
 
 <br/>
 
