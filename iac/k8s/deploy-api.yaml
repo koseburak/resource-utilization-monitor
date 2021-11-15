@@ -24,13 +24,18 @@ spec:
       storage: "1Gi"
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
   namespace: observer
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: observer
+      service: api
+      env: DEV
   template:
     metadata:
      name: api
@@ -69,12 +74,5 @@ spec:
     env: DEV
   ports:
   - protocol: "TCP"
-    # Port accessible inside cluster
     port: 5000
-    # Port to forward to inside the pod
     targetPort: 5000
-    # Port accessible outside cluster
-    nodePort: 30102
-  type: LoadBalancer
-  externalIPs:
-  - 192.168.1.10

@@ -18,6 +18,16 @@ cd iac/k8s
 
 <br/>
 
+
+2. Then, enable the ingress add-on for Minikube.
+    ```console
+    minikube addons enable ingress
+    ```
+
+
+
+
+
 ### Nginx Ingress Controller Installation Guide
 
 1. Start by creating the “mandatory” resources for Nginx Ingress in your cluster.
@@ -49,16 +59,23 @@ cd iac/k8s
     kubectl create ns observer
     ```
 
-2. Deploy the Client Application to Kubernetes
+2. Deploy the Python RestApi Application to Kubernetes
+    ```console
+    kubectl apply -n observer -f deploy-api.yaml
+    ```
+
+3. Deploy the Client Application to Kubernetes
     ```console
     kubectl apply -n observer -f deploy-client.yaml
     ```
-    If you have any version problem to running deployment, please check the api versions of kinds with the following command;
-    ```console
-    kubectl api-resources | grep deployment
-    ````
 
-3. Delete the deployment resources with the following command;
+4. Delete the deployment resources with the following command;
     ```console
-    kubectl delete -n observer -f deploy-client.yaml
+    kubectl delete all --all -n observer
     ```
+
+
+Note: If you have any version problem to running deployment, please check the api versions of kinds with the following command;
+```console
+kubectl api-resources | grep deployment
+````
