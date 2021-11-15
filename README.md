@@ -1,35 +1,42 @@
-# Resource Utilization Watch Application
+# Resource Utilization Watch Application [ Observer ]
 
-This project developed using the Python Flask for the backend and React.Js for the front-end sides.
+This project was developed using Python Flask for the backend and React.js for the frontend. You can see the below how to containerize these applications and 3 different hosting and distribution solutions.
 
-## Docker Compose
+<br/>
+
+## 1. Docker Compose
 
 Run the applications as a container on the local Docker environment using docker-compose.
 
 [Go to Docker-Compose example](iac/docker-compose#section)
 
-## AWS Fargate - ECS
+<br/>
+
+## 2. AWS Fargate - ECS
 
 Run the applications as a container on the AWS Fargate serverless infrastructure using the Elastic Container Service and Elastic Container Registry.
 
-### 1. Create IAM requirements
+### 2.1. Create IAM requirements
 
-Create a new IAM [User Role] named "ecs-admin" with the following **Permission Policies** to manage ECS Fargate Cluster;
+Create a new IAM [User Group] named "ecs-admin" with the following **Permission Policies** to manage ECS Fargate Cluster;
 
 ![AWS - ECS - Administrator User Role](assets/ecs-admin-user-role.png)
 
-Create a new IAM [User] and add it to the newly created as "ecs-admin" group above to manage the ECS Fargate Cluster.
-
-Get the Access and Secret Keys generated for this user to access AWS using Terraform and manage the ECS Cluster.
+Create a new IAM [User] and add it to the newly created as "ecs-admin" [User Group] above to manage the ECS Fargate Cluster.
 
 ![AWS - ECS - Administrator User](assets/ecs-admin-user.png)
+
+> Note: \
+Get the Access and Secret Keys generated for this user to access AWS using Terraform and manage the ECS Cluster. Please don't forget to set the keys in the "iac/terraform-ecs/terraform.tfvars/" file.
+
 <br/>
 
-### 2. Create ECR Private Registry
+### 2.2. Create ECR Private Registry
 
 Create a new Elastic Container Registry(ECR) Private Repository to store application Images
 
 ![ECR - Private Repository](assets/ecr-create-private-repo.png)
+
 <br/>
 
 
@@ -79,8 +86,18 @@ docker push $ECR_REPO:nginx-0.0.1
 cd ..
 ```
 
-### 3. Create ECS Cluster and Other Resources on the AWS using Terraform
+<br/>
+
+### 2.3. Create ECS Cluster and Other Resources on the AWS using Terraform
 
 After the creation IAM requirements(Step 1) and ECR Private Repository(Step 2) go to the "iac/terraform-ecs" directory to create Elastic Container Service Cluster and other Services, Components using Terraform;
 
 [Go to AWS Fargate - ECS example using Terraform](iac/terraform-ecs#section)
+
+<br/>
+
+## 3. Kubernetes Deployment
+
+Deploy the applications as a container and using Nginx Ingress Controller to Kubernetes.
+
+[Go to K8s Deployment example](iac/k8s#section)
