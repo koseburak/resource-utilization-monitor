@@ -14,22 +14,24 @@ $ python app.py
 
 **Build the container image with your latest code and dependencies;**
 ```local
-docker build -t api:0.0.1 .
+docker build -t funf/observer:api-0.0.1 .
+
+docker push funf/observer:api-0.0.1
 ```
 
 **Run the application as a Container on the Docker;**
 * Bind the local 5000 port to container 5000 port on the Docker host
 * Set the Container Name to run in Docker 
 ```local
-docker run -d -p 5000:5000 --name api api:0.0.1
+docker run -d -p 5000:5000 --name api funf/observer:api-0.0.1
 ```
 
 **Show and follow the container logs;**
 ```local
-docker logs python-restapi -f
+docker logs api -f
 ```
 
 **Connect to running container terminal;**
 ```local
-docker exec -it  python-restapi /bin/sh
+docker exec -it api /bin/sh
 ```

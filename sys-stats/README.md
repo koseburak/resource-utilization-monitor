@@ -68,3 +68,31 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+## Run application as a Container on the Docker
+
+**Build the container image with your latest code and dependencies;**
+```local
+docker build -t funf/observer:client-0.0.1 .
+
+docker push funf/observer:client-0.0.1
+```
+
+**Run the application as a Container on the Docker;**
+* Bind the local 3000 port to container 3000 port on the Docker host
+* Set the Container Name to run in Docker 
+```local
+docker run -d -p 3000:3000 --name client funf/observer:client-0.0.1
+```
+
+**Show and follow the container logs;**
+```local
+docker logs client -f
+```
+
+**Connect to running container terminal;**
+```local
+docker exec -it client /bin/sh
+```

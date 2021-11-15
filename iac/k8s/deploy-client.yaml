@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume"
+spec:
+  capacity:
+    storage: "10Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: ~/Documents/dev/docker/k8s-data
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: client-pv-claim
+  namespace: observer
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: observer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: observer
+      service: client
+      env: DEV
+  template:
+    metadata:
+     name: client
+     labels:
+       app: observer
+       service: client
+       env: DEV
+    spec:
+      containers:
+        - name: client
+          image: funf/observer:client-0.0.1
+          env:
+           - name: Environment
+             value: "DEV"
+          ports:
+          - containerPort: 3000
+            name: client
+          volumeMounts:
+          - name: data-client
+            mountPath: /home/observer/data
+      volumes:
+          - name: data-client
+            persistentVolumeClaim:
+              claimName: client-pv-claim
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: client
+  namespace: observer
+spec:
+  selector:
+    app: observer
+    service: client
+    env: DEV
+  ports:
+  - protocol: "TCP"
+    port: 3000
+    targetPort: 3000
+---
+
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: observer-ingress
+  namespace: observer
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /*(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client
+                port:
+                  number: 3000
+          - path: /api(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 5000

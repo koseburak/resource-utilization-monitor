@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume"
+spec:
+  capacity:
+    storage: "10Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: ~/Documents/dev/docker/k8s-data
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: api-pv-claim
+  namespace: observer
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: observer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: observer
+      service: api
+      env: DEV
+  template:
+    metadata:
+     name: api
+     labels:
+       app: observer
+       service: api
+       env: DEV
+    spec:
+      containers:
+        - name: api
+          image: funf/observer:api-0.0.1
+          env:
+           - name: Environment
+             value: "DEV"
+          ports:
+          - containerPort: 5000
+            name: api
+          volumeMounts:
+          - name: data-api
+            mountPath: /home/observer/data
+      volumes:
+          - name: data-api
+            persistentVolumeClaim:
+              claimName: api-pv-claim
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: api
+  namespace: observer
+spec:
+  selector:
+    app: observer
+    service: api
+    env: DEV
+  ports:
+  - protocol: "TCP"
+    port: 5000
+    targetPort: 5000
