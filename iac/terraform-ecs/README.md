@@ -11,8 +11,8 @@ Go to the "iac/terraform-ecs" directory with the following command and after ple
 cd iac/terraform-ecs
 ````
 
-Note: 
-> Enter your own variable values in the **"iac/terraform-ecs/terraform.tfvars"** file.
+> Note: \
+Enter your own variable values in the **"iac/terraform-ecs/terraform.tfvars"** file.
 
 <br/>
 
