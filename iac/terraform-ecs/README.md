@@ -2,6 +2,8 @@
 
 Create the Infrastructure on the AWS using Terraform
 
+<br/>
+
 ## Create and Manage AWS Fargate ECS using Terraform
 
 Go to the "iac/terraform-ecs" directory with the following command and after please run the next commands in this directory;
@@ -9,11 +11,13 @@ Go to the "iac/terraform-ecs" directory with the following command and after ple
 cd iac/terraform-ecs
 ````
 
-Note: Enter your own variable values in the **"iac/terraform-ecs/terraform.tfvars"** file
+Note: 
+> Enter your own variable values in the **"iac/terraform-ecs/terraform.tfvars"** file.
 
 <br/>
 
 ## Download and Install Terraform
+
 You could download and install the Terraform from the [downloads page](https://www.terraform.io/downloads.html).
 
 <br/>
@@ -21,6 +25,8 @@ You could download and install the Terraform from the [downloads page](https://w
 ## Run Terraform and Create Infrastructure
 
 If you have [Terraform](https://www.terraform.io/) installed, create your infrastructure with the following below commands;
+
+<br/>
 
 1. Run the below command in a terminal, to initialize the provider plugins:
     ```console
@@ -38,7 +44,7 @@ If you have [Terraform](https://www.terraform.io/) installed, create your infras
     ```
 4. Run the below command in a terminal to show human-readable output from plan file:
     ```console
-    terraform show observer-tfplan
+    terraform show "observer-tfplan"
     ```
 
 5. Run the below command in a terminal, to Create or Update infrastructure on the AWS:

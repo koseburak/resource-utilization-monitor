@@ -49,8 +49,10 @@ Enable the ingress add-on for Minikube.
     kubectl delete all --all -n observer
     ```
 
+<br/>
 
-Note: If you have any version problem to running deployment, please check the api versions of kinds with the following command;
+> Note: \
+If there is any apiVersion incompatibility during distribution, please check the kind and api version compatibility with below command and update it in .yaml file;
 ```console
 kubectl api-resources | grep deployment
 ````

@@ -1,4 +1,4 @@
-# Resource Utilization Watch Application [Observer]
+# Resource Utilization Watch Application [ Observer ]
 
 This project developed using the Python Flask for the backend and React.Js for the front-end sides.
 
@@ -7,6 +7,8 @@ This project developed using the Python Flask for the backend and React.Js for t
 Run the applications as a container on the local Docker environment using docker-compose.
 
 [Go to Docker-Compose example](iac/docker-compose#section)
+
+<br/>
 
 ## 2. AWS Fargate - ECS
 
@@ -20,9 +22,11 @@ Create a new IAM [User Group] named "ecs-admin" with the following **Permission 
 
 Create a new IAM [User] and add it to the newly created as "ecs-admin" [User Group] above to manage the ECS Fargate Cluster.
 
-Get the Access and Secret Keys generated for this user to access AWS using Terraform and manage the ECS Cluster.
-
 ![AWS - ECS - Administrator User](assets/ecs-admin-user.png)
+
+Note: 
+> Get the Access and Secret Keys generated for this user to access AWS using Terraform and manage the ECS Cluster. Please don't forget to set the keys in the "iac/terraform-ecs/terraform.tfvars/" file.
+
 <br/>
 
 ### 2.2. Create ECR Private Registry
@@ -30,6 +34,7 @@ Get the Access and Secret Keys generated for this user to access AWS using Terra
 Create a new Elastic Container Registry(ECR) Private Repository to store application Images
 
 ![ECR - Private Repository](assets/ecr-create-private-repo.png)
+
 <br/>
 
 
@@ -78,6 +83,8 @@ docker push $ECR_REPO:nginx-0.0.1
 
 cd ..
 ```
+
+<br/>
 
 ### 2.3. Create ECS Cluster and Other Resources on the AWS using Terraform
 

@@ -1,13 +1,15 @@
 # Run the Applications using Docker Compose
 
-Using the **docker-compose** run the all applications on the local Docker environment.
+Using the **docker-compose** run the all applications as a container on the local Docker.
 
-**Build and Run all applications as a Container using the docker-compose;**
+<br/>
+
+**Build and Run all applications as a container using the Docker-Compose;**
 ```local
 docker-compose up --build
 ```
 
-**Stop application containers and Remove all manifests;**
+**Remove all resources;**
 ```local
 docker-compose down
 ```
