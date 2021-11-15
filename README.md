@@ -26,8 +26,8 @@ Create a new IAM [User] and add it to the newly created as "ecs-admin" [User Gro
 
 ![AWS - ECS - Administrator User](assets/ecs-admin-user.png)
 
-Note: 
-> Get the Access and Secret Keys generated for this user to access AWS using Terraform and manage the ECS Cluster. Please don't forget to set the keys in the "iac/terraform-ecs/terraform.tfvars/" file.
+> Note: \
+Get the Access and Secret Keys generated for this user to access AWS using Terraform and manage the ECS Cluster. Please don't forget to set the keys in the "iac/terraform-ecs/terraform.tfvars/" file.
 
 <br/>
 
