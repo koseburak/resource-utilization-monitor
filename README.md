@@ -1,6 +1,8 @@
 # Resource Utilization Watch Application [ Observer ]
 
-This project developed using the Python Flask for the backend and React.Js for the front-end sides.
+This project was developed using Python Flask for the backend and React.js for the frontend. You can see the below how to containerize these applications and 3 different hosting and distribution solutions.
+
+<br/>
 
 ## 1. Docker Compose
 
