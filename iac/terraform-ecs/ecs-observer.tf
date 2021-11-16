@@ -111,10 +111,10 @@ resource "aws_ecs_task_definition" "observer" {
 resource "aws_ecs_service" "observer" {
   name                               = "${var.app_name}-service-${var.app_env}"
   cluster                            = aws_ecs_cluster.ecs_cluster.id
-  task_definition                    = aws_ecs_task_definition.observer.arn #"${aws_ecs_task_definition.client.family}:${max(aws_ecs_task_definition.client.revision, data.aws_ecs_task_definition.client.revision)}"
+  task_definition                    = aws_ecs_task_definition.observer.arn
   launch_type                        = "FARGATE"
   scheduling_strategy                = "REPLICA"
-  desired_count                      = 1
+  desired_count                      = 3
   force_new_deployment               = true
   deployment_minimum_healthy_percent = 50
   deployment_maximum_percent         = 200
@@ -137,4 +137,45 @@ resource "aws_ecs_service" "observer" {
   }
 
   depends_on = [aws_alb_listener.http]
+}
+
+# ECS Service - Auto Scaling
+resource "aws_appautoscaling_target" "ecs_target" {
+  max_capacity       = 6
+  min_capacity       = 1
+  resource_id        = "service/${aws_ecs_cluster.ecs_cluster.name}/${aws_ecs_service.observer.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+}
+
+resource "aws_appautoscaling_policy" "ecs_policy_memory" {
+  name               = "memory-autoscaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.ecs_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
+ 
+  target_tracking_scaling_policy_configuration {
+   predefined_metric_specification {
+     predefined_metric_type = "ECSServiceAverageMemoryUtilization"
+   }
+ 
+   target_value       = 60
+  }
+}
+
+resource "aws_appautoscaling_policy" "ecs_policy_cpu" {
+  name               = "cpu-autoscaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.ecs_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
+ 
+  target_tracking_scaling_policy_configuration {
+   predefined_metric_specification {
+     predefined_metric_type = "ECSServiceAverageCPUUtilization"
+   }
+ 
+   target_value       = 60
+  }
 }
