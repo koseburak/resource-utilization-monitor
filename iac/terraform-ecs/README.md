@@ -57,3 +57,8 @@ If you have [Terraform](https://www.terraform.io/) installed, create your infras
     ```console
     terraform destroy
     ```
+<br/>
+
+### AWS - ECS Cluster Diagram
+
+![AWS - ECS Cluster](../../assets/aws-fargate-ecs-diagram.png)
